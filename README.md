@@ -1,3 +1,8 @@
+ALL CREDIT TO LOW LEVEL DEVEL/rockytriton
+ALL OF THIS CODE COMES FROM HIS GAMEBOY EMULATOR SERIES
+PLEASE WATCH IT ON THE LINK BELOW AND SUPPORT HIS CHANNEL.
+https://www.youtube.com/playlist?list=PLVxiWMqQvhg_yk4qy2cSC3457wZJga_e5
+
 Important References:
 
 https://gbdev.io/pandocs/
