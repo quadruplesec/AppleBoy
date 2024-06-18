@@ -3,6 +3,8 @@ ALL OF THIS CODE COMES FROM HIS GAMEBOY EMULATOR SERIES
 PLEASE WATCH IT ON THE LINK BELOW AND SUPPORT HIS CHANNEL.
 https://www.youtube.com/playlist?list=PLVxiWMqQvhg_yk4qy2cSC3457wZJga_e5
 
+Why Appleboy? Because I thought it would be funny to make a GB Emulator and run Bad Apple! on it... still not sure it will actually run, the only ROM I could find is for the GBC...
+
 Important References:
 
 https://gbdev.io/pandocs/
