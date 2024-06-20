@@ -1,6 +1,7 @@
 #include <cpu.h>
 #include <bus.h>
 #include <emu.h>
+#include <interrupts.h>
 
 cpu_context ctx = {0};
 
@@ -60,6 +61,27 @@ bool cpu_step()
         execute();
     }
 
+    else
+    {
+        emu_cycles(1);
+
+        if (ctx.int_flags)
+        {
+            ctx.halted = false;
+        }
+    }
+
+    if (ctx.int_master_enabled)
+    {
+        cpu_handle_interrupts(&ctx);
+        ctx.enabling_ime = false;
+    }
+
+    if (ctx.enabling_ime)
+    {
+        ctx.int_master_enabled = true;
+    }
+
     return true;
 }
 
@@ -71,9 +93,4 @@ u8 cpu_get_ie_register()
 void cpu_set_ie_register(u8 n)
 {
     ctx.ie_register = n;
-}
-
-cpu_registers* cpu_get_regs()
-{
-    return &ctx.regs;
 }
