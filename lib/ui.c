@@ -3,13 +3,14 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-SDL_Window* sdlWindow;
-SDL_Renderer* sdlRenderer;
-SDL_Texture* sdlTexture;
-SDL_Surface* screen;
+SDL_Window *sdlWindow;
+SDL_Renderer *sdlRenderer;
+SDL_Texture *sdlTexture;
+SDL_Surface *screen;
 
-void ui_init()
+void ui_init() 
 {
+    
     SDL_Init(SDL_INIT_VIDEO);
     printf("SDL INIT\n");
     TTF_Init();
@@ -18,26 +19,24 @@ void ui_init()
     SDL_CreateWindowAndRenderer(SCREEN_WIDTH, SCREEN_HEIGHT, 0, &sdlWindow, &sdlRenderer);
 }
 
-
-void delay(u32 ms)
+void delay(u32 ms) 
 {
     SDL_Delay(ms);
 }
 
-
-void ui_handle_events()
+void ui_handle_events() 
 {
-    SDL_Event event;
-    while (SDL_PollEvent(&event) > 0)
+    SDL_Event e;
+    while (SDL_PollEvent(&e) > 0)
     {
         //TODO SDL_UpdateWindowSurface(sdlWindow);
         //TODO SDL_UpdateWindowSurface(sdlTraceWindow);
         //TODO SDL_UpdateWindowSurface(sdlDebugWindow);
 
-        if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE)
+        if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_CLOSE) 
         {
             emu_get_context()->die = true;
         }
     }
-
 }
+

@@ -1,9 +1,6 @@
-#ifndef PPU_H
-#define PPU_H
+#pragma once
 
 #include <common.h>
 
 void ppu_init();
 void ppu_tick();
-
-#endif

@@ -3,36 +3,38 @@
 #include <cart.h>
 #include <cpu.h>
 #include <ui.h>
-#include <pthread.h> // <-- POSIX only
+#include <timer.h>
+#include <pthread.h>
 #include <unistd.h>
 
-/*
-    EMU Components:
-    - Cart
-    - CPU
-    - Address Bus
-    - PPU
-    - Timer
+/* 
+  Emu components:
+
+  |Cart|
+  |CPU|
+  |Address Bus|
+  |PPU|
+  |Timer|
+
 */
 
 static emu_context ctx;
-
 
 emu_context* emu_get_context()
 {
     return &ctx;
 }
 
-
 void* cpu_run(void* p)
 {
+    timer_init();
     cpu_init();
 
-    ctx.paused = false;
     ctx.running = true;
+    ctx.paused = false;
     ctx.ticks = 0;
 
-    while (ctx.running)
+    while(ctx.running)
     {
         if (ctx.paused)
         {
@@ -42,22 +44,19 @@ void* cpu_run(void* p)
 
         if (!cpu_step())
         {
-            printf("CPU Stopped...\n");
+            printf("CPU Stopped\n");
             return 0;
         }
-
-        ctx.ticks++;
     }
 
     return 0;
 }
 
-
-int emu_run(int argc, char **argv)
+int emu_run(int argc, char** argv)
 {
     if (argc < 2)
     {
-        printf("Usage: emu [rom_file]\n");
+        printf("Usage: emu <rom_file>\n");
         return -1;
     }
 
@@ -67,19 +66,19 @@ int emu_run(int argc, char **argv)
         return -2;
     }
 
-    printf("Cart loaded...\n");
+    printf("Cart loaded..\n");
 
     ui_init();
-
+    
     pthread_t t1;
 
     if (pthread_create(&t1, NULL, cpu_run, NULL))
     {
-        fprintf(stderr, "FAILED TO START MAIN CPU THREAD\n");
+        fprintf(stderr, "FAILED TO START MAIN CPU THREAD!\n");
         return -1;
     }
 
-    while (!ctx.die)
+    while(!ctx.die)
     {
         usleep(1000);
         ui_handle_events();
@@ -88,8 +87,14 @@ int emu_run(int argc, char **argv)
     return 0;
 }
 
-
 void emu_cycles(int cpu_cycles)
 {
-    //TODO....
+    //TODO...
+    int n = cpu_cycles * 4;
+
+    for (int i=0; i<n; i++)
+    {
+        ctx.ticks++;
+        timer_tick();
+    }
 }

@@ -1,9 +1,8 @@
-#ifndef INSTRUCTIONS_H
-#define INSTRUCTIONS_H
+#pragma once
 
 #include <common.h>
 
-typedef enum {
+typedef enum{
     AM_IMP,
     AM_R_D16,
     AM_R_R,
@@ -46,7 +45,7 @@ typedef enum {
 } reg_type;
 
 typedef enum {
-    IN_NONE, // DEFAULT VALUE
+    IN_NONE,
     IN_NOP,
     IN_LD,
     IN_INC,
@@ -110,8 +109,6 @@ typedef struct {
     u8 param;
 } instruction;
 
-instruction* inst_by_opcode(u8 opcode);
+instruction* instruction_by_opcode(u8 opcode);
 
 char* inst_name(in_type t);
-
-#endif

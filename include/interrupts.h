@@ -1,5 +1,5 @@
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
+
+#pragma once
 
 #include <cpu.h>
 
@@ -14,5 +14,3 @@ typedef enum {
 void cpu_request_interrupt(interrupt_type t);
 
 void cpu_handle_interrupts(cpu_context* ctx);
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef EMU_H
-#define EMU_H
+#pragma once
 
 #include <common.h>
 
@@ -10,8 +9,8 @@ typedef struct {
     u64 ticks;
 } emu_context;
 
-int emu_run(int argc, char **argv);
-emu_context* emu_get_context();
-void emu_cycles(int cpu_cycles);
+int emu_run(int argc, char** argv);
 
-#endif
+emu_context *emu_get_context();
+
+void emu_cycles(int cpu_cycles);

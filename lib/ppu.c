@@ -1,11 +1,11 @@
 #include <ppu.h>
 
-void ppu_init()
+void ppu_init() 
 {
 
 }
 
-void ppu_tick()
+void ppu_tick() 
 {
 
 }

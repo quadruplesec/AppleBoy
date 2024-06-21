@@ -9,7 +9,8 @@ typedef struct {
 
 static cart_context ctx;
 
-static const char* ROM_TYPES[] = {
+static const char* ROM_TYPES[] =
+{
     "ROM ONLY",
     "MBC1",
     "MBC1+RAM",
@@ -47,7 +48,8 @@ static const char* ROM_TYPES[] = {
     "MBC7+SENSOR+RUMBLE+RAM+BATTERY",
 };
 
-static const char* LIC_CODE[0xA5] = {
+static const char* LIC_CODE[0xA5] =
+{
     [0x00] = "None",
     [0x01] = "Nintendo R&D1",
     [0x08] = "Capcom",
@@ -115,7 +117,7 @@ const char* cart_lic_name()
 {
     if (ctx.header->new_lic_code <= 0xA4)
     {
-        return LIC_CODE[ctx.header->new_lic_code];
+        return LIC_CODE[ctx.header->lic_code];
     }
 
     return "UNKNOWN";
@@ -154,21 +156,19 @@ bool cart_load(char* cart)
     fread(ctx.rom_data, ctx.rom_size, 1, fp);
     fclose(fp);
 
-    // Since ROM data is at 0x100, we move the pointer ahead to that address
-    ctx.header = (rom_header*)(ctx.rom_data + 0x100);
-    ctx.header->title[15] = 0; // Null terminate it just to be safe...
+    ctx.header = (rom_header *)(ctx.rom_data + 0x100);
+    ctx.header->title[15] = 0;
 
     printf("Cartridge Loaded:\n");
     printf("\t Title    : %s\n", ctx.header->title);
     printf("\t Type     : %2.2X (%s)\n", ctx.header->type, cart_type_name());
     printf("\t ROM Size : %d KB\n", 32 << ctx.header->rom_size);
-    printf("\t RAM Size : %2.2X\n", ctx.header->RAM_size);
-    printf("\t LIC Code : %2.2X (%s)\n", ctx.header->new_lic_code, cart_lic_name());
+    printf("\t RAM Size : %2.2X\n", ctx.header->ram_size);
+    printf("\t LIC Code : %2.2X (%s)\n", ctx.header->lic_code, cart_lic_name());
     printf("\t ROM Vers : %2.2X\n", ctx.header->version);
 
-    //CHECKSUM
     u16 x = 0;
-    for (u16 i = 0x0134; i <= 0x014C; i++)
+    for (u16 i=0x0134; i<=0x014C; i++)
     {
         x = x - ctx.rom_data[i] - 1;
     }
@@ -186,8 +186,8 @@ u8 cart_read(u16 address)
 
 void cart_write(u16 address, u8 value)
 {
-    //for now just ROM ONLY type supported...
-
-    printf("UNSUPPORTED cart_write(%04X)\n", address);
-    //NO_IMPL
+    //for now, ROM ONLY...
+    printf("cart_write(%04X)\n", address);
+    NO_IMPL
 }
+
