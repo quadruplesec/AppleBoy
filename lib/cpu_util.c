@@ -3,10 +3,12 @@
 
 extern cpu_context ctx;
 
+
 u16 reverse(u16 n)
 {
     return ((n & 0xFF00) >> 8) | ((n & 0x00FF) << 8);
 }
+
 
 u16 cpu_read_reg(reg_type rt)
 {
@@ -31,6 +33,7 @@ u16 cpu_read_reg(reg_type rt)
         default: return 0;
     }
 }
+
 
 void cpu_set_reg(reg_type rt, u16 val)
 {
@@ -87,6 +90,7 @@ u8 cpu_read_reg8(reg_type rt)
     }
 }
 
+
 void cpu_set_reg8(reg_type rt, u8 val)
 {
     switch (rt)
@@ -106,15 +110,18 @@ void cpu_set_reg8(reg_type rt, u8 val)
     }
 }
 
+
 cpu_registers *cpu_get_regs() 
 {
     return &ctx.regs;
 }
 
+
 u8 cpu_get_int_flags() 
 {
     return ctx.int_flags;
 }
+
 
 void cpu_set_int_flags(u8 value) 
 {

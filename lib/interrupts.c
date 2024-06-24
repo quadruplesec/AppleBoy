@@ -8,6 +8,7 @@ void int_handle(cpu_context* ctx, u16 address)
     ctx->regs.pc = address;
 }
 
+
 bool int_check(cpu_context* ctx, u16 address, interrupt_type it)
 {
     if (ctx->int_flags & it && ctx->ie_register & it)
@@ -22,6 +23,7 @@ bool int_check(cpu_context* ctx, u16 address, interrupt_type it)
 
     return false;
 }
+
 
 void cpu_handle_interrupts(cpu_context* ctx)
 {

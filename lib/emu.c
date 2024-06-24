@@ -5,6 +5,7 @@
 #include <ui.h>
 #include <timer.h>
 #include <dma.h>
+#include <ppu.h>
 #include <pthread.h>
 #include <unistd.h>
 
@@ -21,15 +22,18 @@
 
 static emu_context ctx;
 
+
 emu_context* emu_get_context()
 {
     return &ctx;
 }
 
+
 void* cpu_run(void* p)
 {
     timer_init();
     cpu_init();
+    ppu_init();
 
     ctx.running = true;
     ctx.paused = false;
@@ -52,6 +56,7 @@ void* cpu_run(void* p)
 
     return 0;
 }
+
 
 int emu_run(int argc, char** argv)
 {
@@ -79,16 +84,24 @@ int emu_run(int argc, char** argv)
         return -1;
     }
 
+    u32 prev_frame = 0;
+
     while(!ctx.die)
     {
         usleep(1000);
         ui_handle_events();
 
-        ui_update();
+        if (prev_frame != ppu_get_context()->current_frame)
+        {
+            ui_update();
+        }
+
+        prev_frame = ppu_get_context()->current_frame;
     }
 
     return 0;
 }
+
 
 void emu_cycles(int cpu_cycles)
 {
@@ -98,6 +111,7 @@ void emu_cycles(int cpu_cycles)
         {
             ctx.ticks++;
             timer_tick();
+            ppu_tick();
         }
 
         dma_tick();

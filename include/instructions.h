@@ -26,6 +26,7 @@ typedef enum{
     AM_R_A16
 } addr_mode;
 
+
 typedef enum {
     RT_NONE,
     RT_A,
@@ -43,6 +44,7 @@ typedef enum {
     RT_SP,
     RT_PC
 } reg_type;
+
 
 typedef enum {
     IN_NONE,
@@ -96,9 +98,11 @@ typedef enum {
     IN_SET
 } in_type;
 
+
 typedef enum {
     CT_NONE, CT_NZ, CT_Z, CT_NC, CT_C
 } cond_type;
+
 
 typedef struct {
     in_type type;
@@ -109,6 +113,8 @@ typedef struct {
     u8 param;
 } instruction;
 
+
 instruction* instruction_by_opcode(u8 opcode);
+
 
 char* inst_name(in_type t);

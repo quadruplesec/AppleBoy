@@ -3,15 +3,18 @@
 
 static timer_context ctx = {0};
 
+
 timer_context *timer_get_context() 
 {
     return &ctx;
 }
 
+
 void timer_init() 
 {
     ctx.div = 0xAC00;
 }
+
 
 void timer_tick() 
 {
@@ -50,6 +53,7 @@ void timer_tick()
     }
 }
 
+
 void timer_write(u16 address, u8 value) 
 {
     switch (address) 
@@ -75,6 +79,7 @@ void timer_write(u16 address, u8 value)
             break;
     }
 }
+
 
 u8 timer_read(u16 address) 
 {

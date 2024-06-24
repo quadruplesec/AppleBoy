@@ -11,6 +11,6 @@ typedef enum {
     IT_JOYPAD = 16
 } interrupt_type;
 
-void cpu_request_interrupt(interrupt_type t);
 
+void cpu_request_interrupt(interrupt_type t);
 void cpu_handle_interrupts(cpu_context* ctx);

@@ -2,7 +2,6 @@
 #include <cpu.h>
 #include <bus.h>
 
-
 instruction instructions[0x100] =
 {
     [0x00] = {IN_NOP, AM_IMP},
@@ -283,11 +282,11 @@ instruction instructions[0x100] =
 };
 
 
-
 instruction *instruction_by_opcode(u8 opcode)
 {
     return &instructions[opcode];
 }
+
 
 char *inst_lookup[] =
 {
@@ -341,10 +340,12 @@ char *inst_lookup[] =
     "IN_SET"
 };
 
+
 char *inst_name(in_type t)
 {
     return inst_lookup[t];
 }
+
 
 static char *rt_lookup[] =
 {
@@ -364,6 +365,7 @@ static char *rt_lookup[] =
     "SP",
     "PC"
 };
+
 
 void inst_to_str(cpu_context* ctx, char *str)
 {

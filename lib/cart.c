@@ -7,7 +7,9 @@ typedef struct {
     rom_header* header;
 } cart_context;
 
+
 static cart_context ctx;
+
 
 static const char* ROM_TYPES[] =
 {
@@ -47,6 +49,7 @@ static const char* ROM_TYPES[] =
     "0x21 ???",
     "MBC7+SENSOR+RUMBLE+RAM+BATTERY",
 };
+
 
 static const char* LIC_CODE[0xA5] =
 {
@@ -113,6 +116,7 @@ static const char* LIC_CODE[0xA5] =
     [0xA4] = "Konami (Yu-Gi-Oh!)"
 };
 
+
 const char* cart_lic_name()
 {
     if (ctx.header->new_lic_code <= 0xA4)
@@ -123,6 +127,7 @@ const char* cart_lic_name()
     return "UNKNOWN";
 }
 
+
 const char* cart_type_name()
 {
     if (ctx.header->type <= 0x22)
@@ -132,6 +137,7 @@ const char* cart_type_name()
 
     return "UNKNOWN";
 }
+
 
 bool cart_load(char* cart)
 {
@@ -178,11 +184,13 @@ bool cart_load(char* cart)
     return true;
 }
 
+
 u8 cart_read(u16 address)
 {
     //for now just ROM ONLY type supported...
     return ctx.rom_data[address];
 }
+
 
 void cart_write(u16 address, u8 value)
 {
