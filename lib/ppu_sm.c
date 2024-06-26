@@ -3,6 +3,7 @@
 #include <lcd.h>
 #include <cpu.h>
 #include <string.h>
+#include <cart.h>
 #include <interrupts.h>
 
 void pipeline_fifo_reset();
@@ -204,6 +205,11 @@ void ppu_mode_hblank()
                 frame_count = 0;
 
                 printf("FPS: %d\n", fps);
+
+                if (cart_need_save())
+                {
+                    cart_battery_save();
+                }
             }
 
             frame_count++;
