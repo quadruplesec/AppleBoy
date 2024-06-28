@@ -18,9 +18,9 @@ Then, clone this repository to your own computer:
 git clone https://github.com/quadruplesec/AppleBoy.git
 ```
 
-When you are done, run this command to go inside of the new directory, create a build directory, and go inside of it:
+When you are done, run this command to go inside of the new directory, create a build directory, and go inside of it. Might as well make a folder for roms while you're at it:
 ```
-cd AppleBoy && mkdir build && cd build
+cd AppleBoy && mkdir build && mkdir roms && cd build
 ```
 
 Once inside, run the following command to build the project using CMake:
